@@ -356,6 +356,8 @@ def train(config):
         ddp_find_unused_parameters=False,
         gradient_checkpointing=not config.disable_gradient_checkpointing,
         remove_unused_columns=False,
+        load_best_model_at_end = config.load_best_model_at_end,
+        save_steps = config.save_steps
     )
 
     if config.trainer == "reward":

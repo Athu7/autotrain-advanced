@@ -376,6 +376,18 @@ class RunAutoTrainLLMCommand(BaseAutoTrainCommand):
                 "default": 0.1,
                 "alias": ["--dpo-beta"],
             },
+            {
+                "arg": "--save_steps",
+                "help" : "Steps interval for model saving",
+                "required" : True,
+                "type" : int
+            },
+            {
+                "arg": "--load_best_model_at_end",
+                "help": "Save the best model at each saving step",
+                "required" : False,
+                "action": "store_true",
+            }
         ]
         run_llm_parser = parser.add_parser("llm", description="✨ Run AutoTrain LLM")
         for arg in arg_list:
@@ -531,6 +543,8 @@ class RunAutoTrainLLMCommand(BaseAutoTrainCommand):
                 model_ref=self.args.model_ref,
                 dpo_beta=self.args.dpo_beta,
                 prompt_text_column=self.args.prompt_text_column,
+                save_steps = self.args.save_steps,
+                load_best_model_at_end = self.args.load_best_model_at_end
             )
 
             # space training
