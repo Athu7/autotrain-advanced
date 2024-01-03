@@ -372,7 +372,6 @@ def train(config):
         ddp_find_unused_parameters=False,
         gradient_checkpointing=not config.disable_gradient_checkpointing,
         remove_unused_columns=False,
-        load_best_model_at_end = True, 
         eval_steps = 40,
         save_steps = 40,
     )
