@@ -345,9 +345,27 @@ def train(config):
             logging_steps = int(0.2 * len(train_data) / config.batch_size)
         if logging_steps == 0:
             logging_steps = 1
-
+    
+    if config.save_steps == -1:
+        if config.valid_split is not None:
+            save_steps = int(0.2 * len(valid_data) / config.batch_size)
+        else:
+            save_steps = int(0.2 * len(train_data) / config.batch_size)
+        if save_steps == 0:
+            save_steps = 1
     else:
-        logging_steps = config.logging_steps
+        save_steps = config.save_steps
+
+    if config.eval_steps == -1:
+        if config.valid_split is not None:
+            eval_steps = int(0.2 * len(valid_data) / config.batch_size)
+        else:
+            eval_steps = int(0.2 * len(train_data) / config.batch_size)
+        if eval_steps == 0:
+            eval_steps = 1
+    else:
+        eval_steps = config.eval_steps
+
 
     training_args = dict(
         output_dir=config.project_name,
@@ -372,8 +390,8 @@ def train(config):
         ddp_find_unused_parameters=False,
         gradient_checkpointing=not config.disable_gradient_checkpointing,
         remove_unused_columns=False,
-        eval_steps = 40,
-        save_steps = 40,
+        eval_steps = config.eval_steps,
+        save_steps = config.save_steps,
     )
 
     if config.mixed_precision == "fp16":

@@ -245,6 +245,29 @@ class RunAutoTrainLLMCommand(BaseAutoTrainCommand):
                 "default": None,
                 "alias": ["--padding"],
             },
+            {
+                "arg": "--save_steps",
+                "help": "Saving steps to use",
+                "required": False,
+                "type": int,
+                "default": -1,
+                "alias": ["--save-steps"],
+            },
+            {
+                "arg": "--eval_steps",
+                "help": "Evaluation steps to use",
+                "required": False,
+                "type": int,
+                "default": -1,
+                "alias": ["--eval-steps"],
+            },
+            {
+                "arg": "--load_best_model_at_end",
+                "help": "Store the best model while saving",
+                "required": False,
+                "action": "store_true",
+                "alias": ["--load-best-model-at-end"],
+            },
         ]
         arg_list.extend(common_args())
         run_llm_parser = parser.add_parser("llm", description="✨ Run AutoTrain LLM")
@@ -376,6 +399,9 @@ class RunAutoTrainLLMCommand(BaseAutoTrainCommand):
                 prompt_text_column=self.args.prompt_text_column,
                 apply_chat_template=self.args.apply_chat_template,
                 padding=self.args.padding,
+                save_steps = self.args.save_steps,
+                eval_steps = self.args.eval_steps,
+                load_best_model_at_end = self.args.load_best_model_at_end
             )
 
             params = llm_munge_data(params, local=self.args.backend.startswith("local"))

@@ -40,6 +40,9 @@ class LLMTrainingParams(AutoTrainParams):
     max_grad_norm: float = Field(1.0, title="Max gradient norm")
     seed: int = Field(42, title="Seed")
     apply_chat_template: bool = Field(False, title="Apply chat template")
+    save_steps: int = Field(-1, title = "Save steps")
+    eval_steps: int = Field(-1, title = "Eval steps")
+    load_best_model_at_end: bool = Field(False, title = "Save the best model at each stage")
 
     # peft
     quantization: Optional[str] = Field(None, title="int4, int8, or None")
