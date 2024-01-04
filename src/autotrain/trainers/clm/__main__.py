@@ -374,7 +374,7 @@ def train(config):
         learning_rate=config.lr,
         num_train_epochs=config.epochs,
         evaluation_strategy=config.evaluation_strategy if config.valid_split is not None else "no",
-        logging_steps=logging_steps,
+        logging_steps=config.logging_steps,
         save_total_limit=config.save_total_limit,
         save_strategy=config.save_strategy,
         gradient_accumulation_steps=config.gradient_accumulation,
